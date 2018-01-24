@@ -82,6 +82,8 @@ class ArtifactResolver {
   }
 
   void resolveArtifacts(ExecutionRepository repository, Map pipeline) {
+    log.warn("STACK TRACE: {}", Arrays.toString(Thread.currentThread().getStackTrace()))
+    log.warn("PIPELINE IS {}", pipeline)
     List<ExpectedArtifact> expectedArtifacts = pipeline.expectedArtifacts?.collect { objectMapper.convertValue(it, ExpectedArtifact.class) } ?: []
     List<Artifact> receivedArtifacts = pipeline.receivedArtifacts?.collect { objectMapper.convertValue(it, Artifact.class) } ?: []
 
@@ -118,6 +120,9 @@ class ArtifactResolver {
   }
 
   Artifact resolveSingleArtifact(ExpectedArtifact expectedArtifact, List<Artifact> possibleMatches) {
+    log.warn("EXPECTED ARTIFACT: {}", expectedArtifact)
+    log.warn("POSSIBLE MATCHES: {}", possibleMatches)
+
     List<Artifact> matches = possibleMatches.findAll { a -> expectedArtifact.matches((Artifact) a) }
     switch (matches.size()) {
       case 0:

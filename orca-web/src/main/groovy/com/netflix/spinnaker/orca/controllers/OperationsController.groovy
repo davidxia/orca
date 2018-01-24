@@ -76,6 +76,7 @@ class OperationsController {
 
   @RequestMapping(value = "/orchestrate", method = RequestMethod.POST)
   Map<String, Object> orchestrate(@RequestBody Map pipeline, HttpServletResponse response) {
+    log.warn("PIPELINE RECEIVED FROM ECHO: {}", pipeline)
     parsePipelineTrigger(executionRepository, buildService, pipeline)
     Map trigger = pipeline.trigger
 
