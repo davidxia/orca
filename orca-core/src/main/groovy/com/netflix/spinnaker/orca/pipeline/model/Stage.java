@@ -477,6 +477,29 @@ public class Stage implements Serializable {
     return Optional.empty();
   }
 
+  @Override
+  public String toString() {
+    return "Stage{" +
+           "id='" + id + '\'' +
+           ", refId='" + refId + '\'' +
+           ", type='" + type + '\'' +
+           ", name='" + name + '\'' +
+           ", execution=" + execution +
+           ", startTime=" + startTime +
+           ", endTime=" + endTime +
+           ", status=" + status +
+           ", context=" + context +
+           ", outputs=" + outputs +
+           ", tasks=" + tasks +
+           ", syntheticStageOwner=" + syntheticStageOwner +
+           ", parentStageId='" + parentStageId + '\'' +
+           ", requisiteStageRefIds=" + requisiteStageRefIds +
+           ", scheduledTime=" + scheduledTime +
+           ", lastModified=" + lastModified +
+           ", objectMapper=" + objectMapper +
+           '}';
+  }
+
   public static class LastModifiedDetails implements Serializable {
     private String user;
 

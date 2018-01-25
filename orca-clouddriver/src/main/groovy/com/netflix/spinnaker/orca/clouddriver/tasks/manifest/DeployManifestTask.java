@@ -31,6 +31,7 @@ import com.netflix.spinnaker.orca.clouddriver.tasks.AbstractCloudProviderAwareTa
 import com.netflix.spinnaker.orca.pipeline.model.Stage;
 import com.netflix.spinnaker.orca.pipeline.util.ArtifactResolver;
 import com.netflix.spinnaker.orca.pipeline.util.ContextParameterProcessor;
+import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +75,16 @@ public class DeployManifestTask extends AbstractCloudProviderAwareTask implement
   @Nonnull
   @Override
   public TaskResult execute(@Nonnull Stage stage) {
+    log.warn(Arrays.toString(Thread.currentThread().getStackTrace()));
+    log.warn("STAGE IS {}", stage);
     String credentials = getCredentials(stage);
     String cloudProvider = getCloudProvider(stage);
 
     List<Artifact> artifacts = artifactResolver.getArtifacts(stage);
     Map task = new HashMap(stage.getContext());
+    log.warn("TASK IS {}", task);
     String artifactSource = (String) task.get("source");
+    log.warn("ARTIFACT SOURCE IS {}", artifactSource);
     if (StringUtils.isNotEmpty(artifactSource) && artifactSource.equals("artifact")) {
       Artifact manifestArtifact = artifactResolver.getBoundArtifactForId(stage, task.get("manifestArtifactId").toString());
 
